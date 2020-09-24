@@ -5,12 +5,12 @@ setup(
     packages=['pi_dht_webthing'],
     version="0.0.1",
     description='A web connected humidity and temperature sensor',
-    long_description='',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     license='MIT',
     author='Gregor Roth',
     author_email='gregor.roth@web.de',
-    url='https://tobeset',
-    download_url="https://tobeset",
+    url='https://github.com/grro/pi_dht_webthing',
     entry_points={
         'console_scripts': [
             'dht=pi_dht_webthing:main'
@@ -22,6 +22,12 @@ setup(
     install_requires=[
         'webthing',
         'Adafruit-DHT'
-    ]
+    ],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+        "Development Status :: 3 - Alpha"
+    ],
 )
 
