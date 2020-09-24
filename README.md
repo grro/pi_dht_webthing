@@ -4,7 +4,7 @@ A web connected humidity and temperature sensor
 This project provides a [webthing API](https://iot.mozilla.org/wot/) to a DHT11 or DHT22 humidity and temperature sensor running on a Rasperry Pi. 
 
 
-By doing this a http endpoint is provided which supports reading the humidity and temperature sensor vi http. E.g. 
+By doing this a http endpoint is provided which supports reading the humidity and temperature sensor values via http. E.g. 
 
 ```
 curl http://192.168.1.48:9050/properties 
