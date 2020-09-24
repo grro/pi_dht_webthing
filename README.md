@@ -22,16 +22,17 @@ Regarding the RaspberryPi/DHTxx hardware setup and wiring please refer tutorials
 
 To install this software you may use PIP such as shown below
 ```
-pip install pi_dht_webthing
+sudo pip install pi_dht_webthing
 ```
 
-After this installation you may start the webthing via your code or via command line. E.g
+After this installation you may start the webthing inside your python code or via command line. E.g
 ```
 sudo dht --command listen --port 9050 --gpio 33
 ```
-Here the webthing API will be exposed using the local port 8080 and connecting the DHT signal pin 33
+Here the webthing API will be exposed using the local port 8080 and connecting the DHTxx signal pin 33
 
-You may also use the register command to register and start the webthing service as systemd unit. By doing this the wething service will be started automatically on boot
+You may also use the register command to register and start the webthing service as systemd 
+unit. By doing this the webthing service will be started automatically on boot
 ```
 sudo dht --command register --port 9050 --gpio 33
 ```  
