@@ -4,7 +4,6 @@ import tornado.ioloop
 import Adafruit_DHT
 
 
-
 class Dht22Sensor(Thing):
 
     def __init__(self, gpio_number):
