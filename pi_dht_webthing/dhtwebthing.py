@@ -10,7 +10,7 @@ class Dht22Sensor(Thing):
     def __init__(self, gpio_number):
         Thing.__init__(
             self,
-            'urn:dev:ops:dht22Sensor-1234',
+            'urn:dev:ops:dhtSensor-1',
             'Humidity and Temperature Sensor',
             ['TemperatureSensor', 'HumiditySensor'],
             'A web connected humidity and temperature sensor'

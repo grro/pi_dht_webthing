@@ -7,76 +7,11 @@ This project provides a [webthing API](https://iot.mozilla.org/wot/) to a DHT11 
 By doing this a http endpoint is provided which supports reading the humidity and temperature sensor vi http. E.g. 
 
 ```
-curl http://192.168.1.48:9050/ 
+curl http://192.168.1.48:9050/properties 
 
 {
-   "title" : "Humidity and Temperature Sensor",
-   "base" : "http://192.168.1.48:9050/",
-   "events" : {},
-   "security" : "nosec_sc",
-   "@type" : [
-      "TemperatureSensor",
-      "HumiditySensor"
-   ],
-   "properties" : {
-      "temperature" : {
-         "description" : "The current temperature in %",
-         "links" : [
-            {
-               "href" : "/properties/temperature",
-               "rel" : "property"
-            }
-         ],
-         "readOnly" : true,
-         "unit" : "degree celsius",
-         "type" : "number",
-         "title" : "Temperature",
-         "@type" : "LevelProperty"
-      },
-      "humidity" : {
-         "title" : "Humidity",
-         "readOnly" : true,
-         "maximum" : 100,
-         "description" : "The current humidity in %",
-         "@type" : "LevelProperty",
-         "minimum" : 0,
-         "type" : "number",
-         "unit" : "percent",
-         "links" : [
-            {
-               "rel" : "property",
-               "href" : "/properties/humidity"
-            }
-         ]
-      }
-   },
-   "links" : [
-      {
-         "href" : "/properties",
-         "rel" : "properties"
-      },
-      {
-         "rel" : "actions",
-         "href" : "/actions"
-      },
-      {
-         "rel" : "events",
-         "href" : "/events"
-      },
-      {
-         "rel" : "alternate",
-         "href" : "ws://192.168.1.48:9050/"
-      }
-   ],
-   "@context" : "https://iot.mozilla.org/schemas",
-   "actions" : {},
-   "securityDefinitions" : {
-      "nosec_sc" : {
-         "scheme" : "nosec"
-      }
-   },
-   "id" : "urn:dev:ops:dht22Sensor-1234",
-   "description" : "A web connected humidity and temperature sensor"
+   "temperature" : 17.3,
+   "humidity" : 79.9
 }
 ```
 
