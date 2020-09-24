@@ -5,10 +5,10 @@ setup(
     packages=['pi_dht_webthing'],
     version_config={
         "version_format": "{tag}.dev{sha}",
-        "starting_version": "0.1.0"
+        "starting_version": "0.0.1"
     },
     setup_requires=['better-setuptools-git-version'],
-    description='A web connected humidity and temperature sensor',
+    description='A web connected DHT sensor reading temperature and humidity values on Raspberry Pi',
     license='MIT',
     author='Gregor Roth',
     author_email='gregor.roth@web.de',
