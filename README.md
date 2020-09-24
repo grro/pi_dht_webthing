@@ -1,11 +1,12 @@
 # pi_dht_webthing
 A web connected humidity and temperature sensor
 
-This project provides a [webthing API](https://iot.mozilla.org/wot/) to a DHT11 or DHT22 humidity and temperature sensor running on a Rasperry Pi. 
+This project provides a [webthing API](https://iot.mozilla.org/wot/) to a DHT11 or DHT22 humidity and temperature sensor 
+running on a Raspberry Pi. As a webthing, the DHT sensor can be discovered and used by 
+home automation systems supporting the webthing API.  
 
-
-By doing this a http endpoint is provided which supports reading the humidity and temperature sensor values via http. E.g. 
-
+By providing the webthing API an http endpoint is exposed which supports reading the 
+humidity and temperature sensor values via http. E.g. 
 ```
 # webthing has been started on host 192.168.0.23
 
@@ -17,9 +18,9 @@ curl http://192.168.0.23:9050/properties
 }
 ```
 
-Regarding the hardware setup please tutorials such as [Using the DHT11 temperaturesensor with the raspberry pi](https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-raspberry-pi/)
+Regarding the RaspberryPi/DHTxx hardware setup and wiring please refer tutorials such as [Using the DHT11 temperaturesensor with the raspberry pi](https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-raspberry-pi/)
 
-To install this software you ma use PIP such as shown below
+To install this software you may use PIP such as shown below
 ```
 pip install pi_dht_webthing
 ```
