@@ -3,7 +3,11 @@ from setuptools import setup
 setup(
     name='pi_dht_webthing',
     packages=['pi_dht_webthing'],
-    version="0.0.1",
+    version_config={
+        "version_format": "{tag}.dev{sha}",
+        "starting_version": "0.1.0"
+    },
+    setup_requires=['better-setuptools-git-version'],
     description='A web connected humidity and temperature sensor',
     license='MIT',
     author='Gregor Roth',

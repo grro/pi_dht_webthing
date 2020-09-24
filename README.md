@@ -7,7 +7,9 @@ This project provides a [webthing API](https://iot.mozilla.org/wot/) to a DHT11 
 By doing this a http endpoint is provided which supports reading the humidity and temperature sensor values via http. E.g. 
 
 ```
-curl http://192.168.1.48:9050/properties 
+# webthing has been started on host 192.168.0.23
+
+curl http://192.168.0.23:9050/properties 
 
 {
    "temperature" : 17.3,
@@ -24,11 +26,11 @@ pip install pi_dht_webthing
 
 After this installation you may start the webthing via your code or via command line. E.g
 ```
-sudo dht --command listen --port 8080 --gpio 33
+sudo dht --command listen --port 9050 --gpio 33
 ```
 Here the webthing API will be exposed using the local port 8080 and connecting the DHT signal pin 33
 
 You may also use the register command to register and start the webthing service as systemd unit. By doing this the wething service will be started automatically on boot
 ```
-sudo dht --command register --port 8080 --gpio 33
+sudo dht --command register --port 9050 --gpio 33
 ```  
