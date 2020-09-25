@@ -30,7 +30,7 @@ sudo dht --command listen --port 9050 --gpio 33
 ```
 Here, the webthing API will be bind to the local port 8080 and be connected to  the DHTxx signal pin 33
 
-Alternatively to the *listen* command, you use the *register* command to register and start the webthing service as systemd unit. By doing this the webthing service will be started automatically on boot. 
+Alternatively to the *listen* command, you can use the *register* command to register and start the webthing service as systemd unit. By doing this the webthing service will be started automatically on boot. 
 ```
 sudo dht --command register --port 9050 --gpio 33
 ```  
