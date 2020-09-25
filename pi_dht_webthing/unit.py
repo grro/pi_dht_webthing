@@ -11,7 +11,7 @@ After=syslog.target
 [Service]
 Type=simple
 ExecStart=dht --command listen --port $port --gpio $gpio_number
-SyslogIdentifier=pi_dht_webthing
+SyslogIdentifier=$packagename
 StandardOutput=syslog
 StandardError=syslog
 Restart=always
