@@ -6,6 +6,8 @@ import Adafruit_DHT
 
 class DhtSensor(Thing):
 
+    # regarding capabilities refer https://iot.mozilla.org/schemas/ and
+
     def __init__(self, gpio_number):
         Thing.__init__(
             self,
@@ -23,7 +25,7 @@ class DhtSensor(Thing):
                      'humidity',
                      self.humidity,
                      metadata={
-                         '@type': 'LevelProperty',
+                         '@type': 'HumidityProperty',
                          'title': 'Humidity',
                          'type': 'number',
                          'description': 'The current humidity in %',
@@ -39,7 +41,7 @@ class DhtSensor(Thing):
                      'temperature',
                      self.temperature,
                      metadata={
-                         '@type': 'LevelProperty',
+                         '@type': 'TemperatureProperty',
                          'title': 'Temperature',
                          'type': 'number',
                          'description': 'The current temperature in %',
