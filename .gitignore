@@ -4,3 +4,4 @@
 /.idea
 /.eggs
 /pi_dht_webthing.iml
+/pi_dht_webthing/__pycache__
