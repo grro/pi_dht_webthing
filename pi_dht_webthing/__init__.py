@@ -1,6 +1,6 @@
 
 import argparse
-from pi_dht_webthing.dhtwebthing import run_server
+from pi_dht_webthing.dht_webthing import run_server
 from pi_dht_webthing.unit import register, deregister
 
 
