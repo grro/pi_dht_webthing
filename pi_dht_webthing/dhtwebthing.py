@@ -45,7 +45,7 @@ class DhtSensor(Thing):
                          '@type': 'TemperatureProperty',
                          'title': 'Temperature',
                          'type': 'number',
-                         'description': 'The current temperature in %',
+                         'description': 'The current temperature',
                          'unit': 'degree celsius',
                          'readOnly': True,
                      }))
