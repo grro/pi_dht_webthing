@@ -4,7 +4,7 @@ import tornado.ioloop
 import Adafruit_DHT
 
 
-class Dht22Sensor(Thing):
+class DhtSensor(Thing):
 
     def __init__(self, gpio_number):
         Thing.__init__(
@@ -59,7 +59,7 @@ class Dht22Sensor(Thing):
         if humidity is not None:
             self.humidity.notify_of_external_update(round(humidity, 1))
         if temperature is not None:
-            self.temperature.notify_of_external_update(round(temperature,1 ))
+            self.temperature.notify_of_external_update(round(temperature, 1))
 
     def cancel_update_level_task(self):
         self.timer.stop()
@@ -67,14 +67,14 @@ class Dht22Sensor(Thing):
 
 
 def run_server(port, gpio_number):
-    dht22Sensor = Dht22Sensor(gpio_number)
-    server = WebThingServer(SingleThing(dht22Sensor), port=port)
+    dht_sensor = DhtSensor(gpio_number)
+    server = WebThingServer(SingleThing(dht_sensor), port=port)
     try:
         logging.info('starting the server')
         server.start()
     except KeyboardInterrupt:
         logging.debug('canceling the sensor update looping task')
-        dht22Sensor.cancel_update_level_task()
+        dht_sensor.cancel_update_level_task()
         logging.info('stopping the server')
         server.stop()
         logging.info('done')

@@ -27,7 +27,7 @@ setup(
         ]
     },
     keywords=[
-        'webthings', 'dht', 'dht11', 'dht22', 'home automation', 'humidity sensor', 'temperature sensor', 'raspberry'
+        'webthings', 'dht', 'dht11', 'dht22', 'home automation', 'humidity sensor', 'temperature sensor', 'raspberry', 'pi'
     ],
     install_requires=[
         'webthing',
