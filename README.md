@@ -19,7 +19,7 @@ curl http://192.168.0.23:9050/properties
 
 Regarding the RaspberryPi/DHTxx hardware setup and wiring please refer tutorials such as [Using the DHT11 temperaturesensor with the raspberry pi](https://www.thegeekpub.com/236867/using-the-dht11-temperature-sensor-with-the-raspberry-pi/)
 
-To install this software you may use PIP such as shown below
+To install this software you may use [PIP](https://realpython.com/what-is-pip/) package manager such as shown below
 ```
 sudo pip install pi_dht_webthing
 ```

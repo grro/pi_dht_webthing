@@ -6,7 +6,8 @@ import Adafruit_DHT
 
 class DhtSensor(Thing):
 
-    # regarding capabilities refer https://iot.mozilla.org/schemas/ and
+    # regarding capabilities refer https://iot.mozilla.org/schemas
+    # there is also another schema registry http://iotschema.org/docs/full.html not used by webthing
 
     def __init__(self, gpio_number):
         Thing.__init__(
