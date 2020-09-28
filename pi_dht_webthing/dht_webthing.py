@@ -51,10 +51,7 @@ class DhtSensor(Thing):
                      }))
 
         logging.debug('starting the sensor update looping task')
-        self.timer = tornado.ioloop.PeriodicCallback(
-            self.measure,
-            60000
-        )
+        self.timer = tornado.ioloop.PeriodicCallback(self.measure, (2 * 60 * 1000))  # 2 min
         self.timer.start()
 
     def measure(self):
