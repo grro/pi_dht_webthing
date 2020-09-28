@@ -53,6 +53,8 @@ class DhtSensor(Thing):
         logging.debug('starting the sensor update looping task')
         self.timer = tornado.ioloop.PeriodicCallback(self.measure, (2 * 60 * 1000))  # 2 min
         self.timer.start()
+        self.measure()
+
 
     def measure(self):
         humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.gpio_number)
