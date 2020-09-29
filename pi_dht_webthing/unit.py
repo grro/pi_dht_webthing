@@ -33,7 +33,6 @@ def register(packagename, port, gpio_number):
     system("sudo systemctl restart " + service)
     system("sudo systemctl status " + service)
 
-
 def deregister(packagename, port):
     service = packagename + "_" + str(port) + ".service"
     unit_file_fullname = str(pathlib.Path("/", "etc", "systemd", "system", service))
@@ -45,3 +44,6 @@ def deregister(packagename, port):
     except Exception as e:
         pass
 
+def printlog(packagename, port):
+    service = packagename + "_" + str(port) + ".service"
+    system("sudo journalctl -f -u " + service)

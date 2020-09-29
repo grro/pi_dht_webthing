@@ -1,7 +1,7 @@
 
 import argparse
 from pi_dht_webthing.dht_webthing import run_server
-from pi_dht_webthing.unit import register, deregister
+from pi_dht_webthing.unit import register, deregister, printlog
 
 
 def main():
@@ -20,6 +20,8 @@ def main():
     elif args.command == 'deregister':
         print("deregister dht webthing service on port " + str(args.port))
         deregister('pi_dht_webthing', int(args.port))
+    elif args.command == 'log':
+        printlog('pi_dht_webthing', int(args.port))
     else:
         print("usage dht --help")
 
