@@ -1,5 +1,6 @@
 from webthing import (SingleThing, Property, Thing, Value, WebThingServer)
 import logging
+import os
 import tornado.ioloop
 import Adafruit_DHT
 
@@ -54,19 +55,25 @@ class DhtSensor(Thing):
         self.timer.start()
 
     def __measure(self):
-        humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.gpio_number)
-        if humidity is not None:
-            self.humidity.notify_of_external_update(round(humidity, 1))
-            logging.debug('humidity ' + str(humidity))
-        if temperature is not None:
-            self.temperature.notify_of_external_update(round(temperature, 1))
-            logging.debug('temperature ' + str(temperature))
+        try:
+            humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.gpio_number)
+            if humidity is not None:
+                self.humidity.notify_of_external_update(round(humidity, 1))
+                logging.debug('humidity ' + str(humidity))
+            if temperature is not None:
+                self.temperature.notify_of_external_update(round(temperature, 1))
+                logging.debug('temperature ' + str(temperature))
+        except Exception as e:
+            logging.error(e)
 
     def cancel_measure_task(self):
         self.timer.stop()
 
 
 def run_server(port, gpio_number):
+    log_level = os.environ.get("LOGLEVEL", "INFO")
+    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=log_level, datefmt='%Y-%m-%d %H:%M:%S')
+
     dht_sensor = DhtSensor(gpio_number)
     server = WebThingServer(SingleThing(dht_sensor), port=port)
     try:
