@@ -6,7 +6,7 @@ from pi_dht_webthing.unit import register, deregister, printlog
 
 def main():
     parser = argparse.ArgumentParser(description='A web connected humidity and temperature sensor')
-    parser.add_argument('--command', metavar='command', required=True, type=str, help='the command. supported commands are: listen (run the webthing service), register (register and starts the webthing service as a systemd unit, deregister (deregisters the systemd unit')
+    parser.add_argument('--command', metavar='command', required=True, type=str, help='the command. supported commands are: listen (run the webthing service), register (register and starts the webthing service as a systemd unit, deregister (deregisters the systemd unit), log (prints the log)')
     parser.add_argument('--port', metavar='port', required=True, type=int, help='the port of the webthing serivce')
     parser.add_argument('--gpio', metavar='gpio', required=False, type=int, help='the gpio number wired to the DHTxxx signal pin')
     args = parser.parse_args()
