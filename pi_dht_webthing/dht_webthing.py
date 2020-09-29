@@ -50,22 +50,21 @@ class DhtSensor(Thing):
                          'readOnly': True,
                      }))
 
-        logging.debug('starting the sensor update looping task')
-        self.timer = tornado.ioloop.PeriodicCallback(self.measure, (2 * 60 * 1000))  # 2 min
+        self.timer = tornado.ioloop.PeriodicCallback(self.__measure, ( 60 * 1000))  # 1 min
         self.timer.start()
-        self.measure()
 
 
-    def measure(self):
+    def __measure(self):
         humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.gpio_number)
         if humidity is not None:
             self.humidity.notify_of_external_update(round(humidity, 1))
+            logging.debug('humidity ' + str(humidity))
         if temperature is not None:
             self.temperature.notify_of_external_update(round(temperature, 1))
+            logging.debug('temperature ' + str(temperature))
 
-    def cancel_update_level_task(self):
+    def cancel_measure_task(self):
         self.timer.stop()
-
 
 
 def run_server(port, gpio_number):
@@ -75,9 +74,8 @@ def run_server(port, gpio_number):
         logging.info('starting the server')
         server.start()
     except KeyboardInterrupt:
-        logging.debug('canceling the sensor update looping task')
-        dht_sensor.cancel_update_level_task()
         logging.info('stopping the server')
+        dht_sensor.cancel_measure_task()
         server.stop()
         logging.info('done')
 
