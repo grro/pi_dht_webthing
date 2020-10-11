@@ -2,6 +2,13 @@ from setuptools import setup
 from os import path
 
 
+
+PACKAGENAME = 'pi_dht_webthing'
+ENTRY_POINT = "dht"
+DESCRIPTION = "A web connected DHT sensor reading temperature and humidity values on Raspberry Pi"
+
+
+
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()

@@ -47,3 +47,23 @@ def deregister(packagename, port):
 def printlog(packagename, port):
     service = packagename + "_" + str(port) + ".service"
     system("sudo journalctl -f -u " + service)
+
+
+def list_installed(packagename):
+    services = []
+    for file in listdir(pathlib.Path("/", "etc", "systemd", "system")):
+        if file.startswith(packagename) and file.endswith('.service'):
+            port = file[file.rindex('_')+1:file.index('.service')]
+            services.append((file, port, is_active(file)))
+    return services
+
+def is_active(serivcename):
+    cmd = '/bin/systemctl status %s' % serivcename
+    proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE,encoding='utf8')
+    stdout_list = proc.communicate()[0].split('\n')
+    for line in stdout_list:
+        if 'Active:' in line:
+            if '(running)' in line:
+                return True
+    return False
+
