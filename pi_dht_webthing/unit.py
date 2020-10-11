@@ -54,10 +54,13 @@ def printlog(packagename: str, port: int):
 
 def list_installed(packagename: str):
     services = []
-    for file in listdir(pathlib.Path("/", "etc", "systemd", "system")):
-        if file.startswith(packagename) and file.endswith('.service'):
-            port = file[file.rindex('_')+1:file.index('.service')]
-            services.append((file, port, is_active(file)))
+    try:
+        for file in listdir(pathlib.Path("/", "etc", "systemd", "system")):
+            if file.startswith(packagename) and file.endswith('.service'):
+                port = file[file.rindex('_')+1:file.index('.service')]
+                services.append((file, port, is_active(file)))
+    except Exception as e:
+        pass
     return services
 
 
