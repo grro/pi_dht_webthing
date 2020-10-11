@@ -49,13 +49,13 @@ def main():
         elif args.gpio is None:
             print("--gpio is mandatory")
         else:
-            print("register " + PACKAGENAME + "/" + args.name + " on port " + str(args.port) + "/gpio " + str(args.gpio) + " and starting it")
+            print("register " + PACKAGENAME + " on port " + str(args.port) + "/gpio " + str(args.gpio) + " and starting it")
             register(PACKAGENAME, ENTRY_POINT, int(args.port))
     elif args.command == 'deregister':
         if args.port is None:
             print("--port is mandatory")
         else:
-            print("deregister " + PACKAGENAME + "/" + args.name + " on port " + str(args.port))
+            print("deregister " + PACKAGENAME + " on port " + str(args.port))
             deregister(PACKAGENAME, int(args.port))
     elif args.command == 'log':
         if args.port is None:
