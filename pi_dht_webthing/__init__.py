@@ -13,10 +13,10 @@ DESCRIPTION = "A web connected DHT sensor reading temperature and humidity value
 def print_info():
     print("usage " + ENTRY_POINT + " --help for command options")
     print("example commands")
-    print(" sudo " + ENTRY_POINT + " --command register --port 9050 --gpio 2")
-    print(" sudo " + ENTRY_POINT + " --command listen --port 9050 --gpio 2")
+    print(" sudo " + ENTRY_POINT + " --command register --port 8070 --gpio 2")
+    print(" sudo " + ENTRY_POINT + " --command listen --port 8070 --gpio 2")
     if len(list_installed(PACKAGENAME)) > 0:
-        print("example command s for registered services")
+        print("example commands for registered services")
         for service_info in list_installed(PACKAGENAME):
             port = service_info[1]
             is_active = service_info[2]

@@ -1,6 +1,5 @@
 from webthing import (SingleThing, Property, Thing, Value, WebThingServer)
 import logging
-import os
 import tornado.ioloop
 import Adafruit_DHT
 
@@ -10,13 +9,13 @@ class DhtSensor(Thing):
     # regarding capabilities refer https://iot.mozilla.org/schemas
     # there is also another schema registry http://iotschema.org/docs/full.html not used by webthing
 
-    def __init__(self, gpio_number, decription):
+    def __init__(self, gpio_number: int, description: str):
         Thing.__init__(
             self,
             'urn:dev:ops:dhtSensor-1',
             'Humidity and Temperature Sensor',
             ['TemperatureSensor', 'HumiditySensor'],
-            decription
+            description
         )
 
         self.sensor = Adafruit_DHT.DHT22

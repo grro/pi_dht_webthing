@@ -34,6 +34,7 @@ def register(packagename: str, entrypoint: str, port: int, gpio_number: int):
     system("sudo systemctl restart " + service)
     system("sudo systemctl status " + service)
 
+
 def deregister(packagename: str, port: int):
     service = packagename + "_" + str(port) + ".service"
     unit_file_fullname = str(pathlib.Path("/", "etc", "systemd", "system", service))
@@ -44,6 +45,7 @@ def deregister(packagename: str, port: int):
         remove(unit_file_fullname)
     except Exception as e:
         pass
+
 
 def printlog(packagename: str, port: int):
     service = packagename + "_" + str(port) + ".service"
@@ -57,6 +59,7 @@ def list_installed(packagename: str):
             port = file[file.rindex('_')+1:file.index('.service')]
             services.append((file, port, is_active(file)))
     return services
+
 
 def is_active(serivcename: str):
     cmd = '/bin/systemctl status %s' % serivcename
