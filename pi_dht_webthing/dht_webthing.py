@@ -70,7 +70,7 @@ class DhtSensor(Thing):
         self.timer.stop()
 
 
-def run_server(port, gpio_number, description):
+def run_server(port: int, gpio_number: int, description: str):
     logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
     dht_sensor = DhtSensor(gpio_number, description)
     server = WebThingServer(SingleThing(dht_sensor), port=port)

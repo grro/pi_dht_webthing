@@ -11,7 +11,7 @@ After=syslog.target
 
 [Service]
 Type=simple
-ExecStart=dht --command listen --port $port --gpio $gpio_number
+ExecStart=$entrypoint --command listen --port $port --gpio $gpio_number
 SyslogIdentifier=$packagename
 StandardOutput=syslog
 StandardError=syslog
@@ -23,8 +23,8 @@ WantedBy=multi-user.target
 ''')
 
 
-def register(packagename, port, gpio_number):
-    unit = UNIT_TEMPLATE.substitute(packagename=packagename, port=port, gpio_number=gpio_number)
+def register(packagename: str, entrypoint: str, port: int, gpio_number: int):
+    unit = UNIT_TEMPLATE.substitute(packagename=packagename, entrypoint=entrypoint, port=port, gpio_number=gpio_number)
     service = packagename + "_" + str(port) + ".service"
     unit_file_fullname = str(pathlib.Path("/", "etc", "systemd", "system", service))
     with open(unit_file_fullname, "w") as file:
@@ -34,7 +34,7 @@ def register(packagename, port, gpio_number):
     system("sudo systemctl restart " + service)
     system("sudo systemctl status " + service)
 
-def deregister(packagename, port):
+def deregister(packagename: str, port: int):
     service = packagename + "_" + str(port) + ".service"
     unit_file_fullname = str(pathlib.Path("/", "etc", "systemd", "system", service))
     system("sudo systemctl stop " + service)
@@ -45,12 +45,12 @@ def deregister(packagename, port):
     except Exception as e:
         pass
 
-def printlog(packagename, port):
+def printlog(packagename: str, port: int):
     service = packagename + "_" + str(port) + ".service"
     system("sudo journalctl -f -u " + service)
 
 
-def list_installed(packagename):
+def list_installed(packagename: str):
     services = []
     for file in listdir(pathlib.Path("/", "etc", "systemd", "system")):
         if file.startswith(packagename) and file.endswith('.service'):
@@ -58,7 +58,7 @@ def list_installed(packagename):
             services.append((file, port, is_active(file)))
     return services
 
-def is_active(serivcename):
+def is_active(serivcename: str):
     cmd = '/bin/systemctl status %s' % serivcename
     proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE,encoding='utf8')
     stdout_list = proc.communicate()[0].split('\n')
