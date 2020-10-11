@@ -5,7 +5,7 @@ This project provides a [webthing API](https://iot.mozilla.org/wot/) to a [DHT11
 running on a Raspberry Pi. As a webthing, the DHT sensor can be discovered and used by 
 *home automation systems* or custom solutions supporting the webthing API.  
 
-The pi_dht_webthing package exposes an http webthing endpoint which supports reading the humidity and temperature sensor values via http. E.g. 
+The pi_dht_webthing exposes an http webthing endpoint which supports reading the humidity and temperature sensor values via http. E.g. 
 ```
 # webthing has been started on host 192.168.0.23
 

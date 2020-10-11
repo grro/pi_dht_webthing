@@ -12,16 +12,17 @@ DESCRIPTION = "A web connected DHT sensor reading temperature and humidity value
 
 def print_info():
     print("usage " + ENTRY_POINT + " --help for command options")
-    print("example")
-    print(" sudo " + ENTRY_POINT + " --command register --port 9544 --gpio 14")
-    print(" sudo " + ENTRY_POINT + " --command listen --port 9544 --gpio 14")
-    print("registered")
-    for service_info in list_installed(PACKAGENAME):
-        port = service_info[1]
-        is_active = service_info[2]
-        print(" sudo " + ENTRY_POINT + " --command log --port " + port)
-        if is_active:
-            print(" sudo " + ENTRY_POINT + " --command deregister --port " + port)
+    print("example commands")
+    print(" sudo " + ENTRY_POINT + " --command register --port 9050 --gpio 2")
+    print(" sudo " + ENTRY_POINT + " --command listen --port 9050 --gpio 2")
+    if len(list_installed(PACKAGENAME)) > 0:
+        print("example command s for registered services")
+        for service_info in list_installed(PACKAGENAME):
+            port = service_info[1]
+            is_active = service_info[2]
+            print(" sudo " + ENTRY_POINT + " --command log --port " + port)
+            if is_active:
+                print(" sudo " + ENTRY_POINT + " --command deregister --port " + port)
 
 
 
@@ -40,7 +41,7 @@ def main():
         elif args.gpio is None:
             print("--gpio is mandatory")
         else:
-            print("running " + PACKAGENAME + "/" + args.name + " on port " + str(args.port) + "/gpio " + str(args.gpio))
+            print("running " + PACKAGENAME + " on port " + str(args.port) + "/gpio " + str(args.gpio))
             run_server(args.port, args.gpio, DESCRIPTION)
     elif args.command == 'register':
         if args.port is None:
@@ -49,7 +50,7 @@ def main():
             print("--gpio is mandatory")
         else:
             print("register " + PACKAGENAME + "/" + args.name + " on port " + str(args.port) + "/gpio " + str(args.gpio) + " and starting it")
-            register(PACKAGENAME, ENTRY_POINT, int(args.port), int(args.gpio))
+            register(PACKAGENAME, ENTRY_POINT, int(args.port))
     elif args.command == 'deregister':
         if args.port is None:
             print("--port is mandatory")
