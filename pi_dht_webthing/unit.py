@@ -7,7 +7,7 @@ import subprocess
 UNIT_TEMPLATE = Template('''
 [Unit]
 Description=$packagename
-After=syslog.target
+After=syslog.target network.target
 
 [Service]
 Type=simple
