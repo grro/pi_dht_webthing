@@ -29,6 +29,7 @@ def print_info():
 def main():
     parser = argparse.ArgumentParser(description='A web connected humidity and temperature sensor')
     parser.add_argument('--command', metavar='command', required=False, type=str, help='the command. supported commands are: listen (run the webthing service), register (register and starts the webthing service as a systemd unit, deregister (deregisters the systemd unit), log (prints the log)')
+    parser.add_argument('--hostname', metavar='hostname', required=False, type=str, help='the hostname of the webthing serivce')
     parser.add_argument('--port', metavar='port', required=False, type=int, help='the port of the webthing serivce')
     parser.add_argument('--gpio', metavar='gpio', required=False, type=int, help='the gpio number wired to the DHTxxx signal pin')
     args = parser.parse_args()
@@ -36,23 +37,29 @@ def main():
     if args.command is None:
         print_info()
     elif args.command == 'listen':
-        if args.port is None:
+        if args.hostname is None:
+            print("--hostname is mandatory")
+        elif args.port is None:
             print("--port is mandatory")
         elif args.gpio is None:
             print("--gpio is mandatory")
         else:
-            print("running " + PACKAGENAME + " on port " + str(args.port) + "/gpio " + str(args.gpio))
-            run_server(args.port, args.gpio, DESCRIPTION)
+            print("running " + PACKAGENAME + " on " + args.hostname + "/" + str(args.port) + " (gpio " + str(args.gpio) + ")")
+            run_server(args.hostname, args.port, args.gpio, DESCRIPTION)
     elif args.command == 'register':
-        if args.port is None:
+        if args.hostname is None:
+            print("--hostname is mandatory")
+        elif args.port is None:
             print("--port is mandatory")
         elif args.gpio is None:
             print("--gpio is mandatory")
         else:
-            print("register " + PACKAGENAME + " on port " + str(args.port) + "/gpio " + str(args.gpio) + " and starting it")
-            register(PACKAGENAME, ENTRY_POINT, int(args.port), int(args.gpio))
+            print("register " + PACKAGENAME + " on " + args.hostname + "/" + str(args.port) + " (gpio " + str(args.gpio) + " and starting it")
+            register(PACKAGENAME, ENTRY_POINT, args.hostname, int(args.port), int(args.gpio))
     elif args.command == 'deregister':
-        if args.port is None:
+        if args.hostname is None:
+            print("--hostname is mandatory")
+        elif args.port is None:
             print("--port is mandatory")
         else:
             print("deregister " + PACKAGENAME + " on port " + str(args.port))
