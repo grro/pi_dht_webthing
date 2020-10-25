@@ -54,7 +54,7 @@ def main():
         elif args.gpio is None:
             print("--gpio is mandatory")
         else:
-            print("register " + PACKAGENAME + " on " + args.hostname + "/" + str(args.port) + " (gpio " + str(args.gpio) + " and starting it")
+            print("register " + PACKAGENAME + " on " + args.hostname + "/" + str(args.port) + " (gpio " + str(args.gpio) + " and starting it)")
             register(PACKAGENAME, ENTRY_POINT, args.hostname, int(args.port), int(args.gpio))
     elif args.command == 'deregister':
         if args.hostname is None:
