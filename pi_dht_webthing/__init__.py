@@ -1,8 +1,6 @@
-import os
-import logging
-import argparse
+from string import Template
+from pi_dht_webthing.app import App
 from pi_dht_webthing.dht_webthing import run_server
-from pi_dht_webthing.unit import register, deregister, printlog, list_installed
 
 
 PACKAGENAME = 'pi_dht_webthing'
@@ -10,72 +8,54 @@ ENTRY_POINT = "dht"
 DESCRIPTION = "A web connected DHT sensor reading temperature and humidity values on Raspberry Pi"
 
 
-def print_info():
-    print("usage " + ENTRY_POINT + " --help for command options")
-    print("example commands")
-    print(" sudo " + ENTRY_POINT + " --command register --port 8070 --gpio 2")
-    print(" sudo " + ENTRY_POINT + " --command listen --port 8070 --gpio 2")
-    if len(list_installed(PACKAGENAME)) > 0:
-        print("example commands for registered services")
-        for service_info in list_installed(PACKAGENAME):
-            port = service_info[1]
-            is_active = service_info[2]
-            print(" sudo " + ENTRY_POINT + " --command log --port " + port)
-            if is_active:
-                print(" sudo " + ENTRY_POINT + " --command deregister --port " + port)
+UNIT_TEMPLATE = Template('''
+[Unit]
+Description=$packagename
+After=syslog.target network.target
 
+[Service]
+Type=simple
+ExecStart=$entrypoint --command listen --hostname $hostname --verbose $verbose --port $port --gpio $gpio
+SyslogIdentifier=$packagename
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+''')
+
+
+
+
+class DhtApp(App):
+
+    def do_add_argument(self, parser):
+        parser.add_argument('--gpio', metavar='gpio', required=False, type=int, help='the gpio number wired to the device')
+        parser.add_argument('--name', metavar='name', required=False, default='Motion Sensor', type=str, help='the name of the sensor')
+
+
+    def do_additional_listen_example_params(self):
+        return "--gpio 14"
+
+    def do_process_command(self, command:str, hostname: str, port: int, verbose: bool, args) -> bool:
+        if command == 'listen' and (args. gpio is not None):
+            print("running " + self.packagename + "/" + args.name + " on " + hostname + "/" + str(port) + "/gpio " + str(args.gpio))
+            run_server(hostname, port, int(args.gpio), self.description)
+            return True
+        elif args.command == 'register' and (args.gpio is not None):
+            print("register " + self.packagename + "/" + args.name  + " on " + hostname + "/" + str(port) + "/gpio " + str(args.gpio) + " and starting it")
+            unit = UNIT_TEMPLATE.substitute(packagename=self.packagename, entrypoint=self.entrypoint, hostname=hostname, port=port, verbose=verbose, gpio=args.gpio)
+            self.unit.register(hostname, port, unit)
+            return True
+        else:
+            return False
 
 
 def main():
-    parser = argparse.ArgumentParser(description='A web connected humidity and temperature sensor')
-    parser.add_argument('--command', metavar='command', required=False, type=str, help='the command. supported commands are: listen (run the webthing service), register (register and starts the webthing service as a systemd unit, deregister (deregisters the systemd unit), log (prints the log)')
-    parser.add_argument('--hostname', metavar='hostname', required=False, type=str, help='the hostname of the webthing serivce')
-    parser.add_argument('--port', metavar='port', required=False, type=int, help='the port of the webthing serivce')
-    parser.add_argument('--gpio', metavar='gpio', required=False, type=int, help='the gpio number wired to the DHTxxx signal pin')
-    args = parser.parse_args()
-
-    if args.command is None:
-        print_info()
-    elif args.command == 'listen':
-        if args.hostname is None:
-            print("--hostname is mandatory")
-        elif args.port is None:
-            print("--port is mandatory")
-        elif args.gpio is None:
-            print("--gpio is mandatory")
-        else:
-            print("running " + PACKAGENAME + " on " + args.hostname + "/" + str(args.port) + " (gpio " + str(args.gpio) + ")")
-            run_server(args.hostname, args.port, args.gpio, DESCRIPTION)
-    elif args.command == 'register':
-        if args.hostname is None:
-            print("--hostname is mandatory")
-        elif args.port is None:
-            print("--port is mandatory")
-        elif args.gpio is None:
-            print("--gpio is mandatory")
-        else:
-            print("register " + PACKAGENAME + " on " + args.hostname + "/" + str(args.port) + " (gpio " + str(args.gpio) + " and starting it)")
-            register(PACKAGENAME, ENTRY_POINT, args.hostname, int(args.port), int(args.gpio))
-    elif args.command == 'deregister':
-        if args.hostname is None:
-            print("--hostname is mandatory")
-        elif args.port is None:
-            print("--port is mandatory")
-        else:
-            print("deregister " + PACKAGENAME + " on port " + str(args.port))
-            deregister(PACKAGENAME, int(args.port))
-    elif args.command == 'log':
-        if args.port is None:
-            print("--port is mandatory")
-        else:
-            printlog(PACKAGENAME, int(args.port))
-    else:
-        print("unsupported command")
-        print_info()
+    DhtApp(PACKAGENAME, ENTRY_POINT, DESCRIPTION).handle_command()
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
-
     main()
-
