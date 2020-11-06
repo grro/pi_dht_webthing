@@ -27,7 +27,7 @@ class DhtSensor(Thing):
                      self.humidity,
                      metadata={
                          '@type': 'HumidityProperty',
-                         'title': 'Humidity from 0%-100%',
+                         'title': 'Humidity (0%-100%)',
                          'type': 'number',
                          'description': 'The current humidity from 0%-100%',
                          'minimum': 0,
