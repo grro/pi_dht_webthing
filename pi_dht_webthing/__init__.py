@@ -41,11 +41,11 @@ class DhtApp(App):
 
     def do_process_command(self, command:str, hostname: str, port: int, verbose: bool, args) -> bool:
         if command == 'listen' and (args. gpio is not None):
-            print("running " + self.packagename + "/" + args.name + " on " + hostname + "/" + str(port) + "/gpio " + str(args.gpio))
+            print("running " + self.packagename + "/" + args.name + " on " + hostname + ":" + str(port) + "/gpio " + str(args.gpio))
             run_server(hostname, port, int(args.gpio), self.description)
             return True
         elif args.command == 'register' and (args.gpio is not None):
-            print("register " + self.packagename + "/" + args.name  + " on " + hostname + "/" + str(port) + "/gpio " + str(args.gpio) + " and starting it")
+            print("register " + self.packagename + "/" + args.name  + " on " + hostname + ":" + str(port) + "/gpio " + str(args.gpio) + " and starting it")
             unit = UNIT_TEMPLATE.substitute(packagename=self.packagename, entrypoint=self.entrypoint, hostname=hostname, port=port, verbose=verbose, gpio=args.gpio)
             self.unit.register(hostname, port, unit)
             return True
