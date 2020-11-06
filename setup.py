@@ -21,7 +21,7 @@ setup(
         "starting_version": "0.0.1"
     },
     setup_requires=['better-setuptools-git-version'],
-    description='A web connected DHT sensor reading temperature and humidity values on Raspberry Pi',
+    description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='MIT',
@@ -30,7 +30,7 @@ setup(
     url='https://github.com/grro/pi_dht_webthing',
     entry_points={
         'console_scripts': [
-            'dht=pi_dht_webthing:main'
+            ENTRY_POINT + '=' + PACKAGENAME + ':main'
         ]
     },
     keywords=[
