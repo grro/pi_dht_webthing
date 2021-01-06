@@ -26,12 +26,12 @@ sudo pip install pi_dht_webthing
 
 After this installation you may start the webthing http endpoint inside your python code or via command line using
 ```
-sudo dht --command listen --hostname 192.168.0.23 --port 8070 --gpio 2
+sudo dht --command listen --h--port 8070 --gpio 2
 ```
-Here, the webthing API will be bind to hostname 192.168.0.23 on the local port 8070 and be connected to the DHTxx signal pin using gpio 2
+Here, the webthing API will be bind on port 8070 and be connected to the DHTxx signal pin using gpio 2
 
 Alternatively to the *listen* command, you can use the *register* command to register and start the webthing service as systemd unit. 
 By doing this the webthing service will be started automatically on boot. Starting the server manually using the *listen* command is no longer necessary. 
 ```
-sudo dht --command register --hostname 192.168.0.23 --port 8070 --gpio 2
+sudo dht --command register --port 8070 --gpio 2
 ```  

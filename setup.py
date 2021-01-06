@@ -37,7 +37,7 @@ setup(
         'webthings', 'dht', 'dht11', 'dht22', 'home automation', 'humidity sensor', 'temperature sensor', 'raspberry', 'pi'
     ],
     install_requires=[
-        'webthing',
+        'webthing==0.15.0',
         'Adafruit-DHT'
     ],
     classifiers=[

@@ -69,9 +69,9 @@ class DhtSensor(Thing):
         self.timer.stop()
 
 
-def run_server(hostname: str, port: int, gpio_number: int, description: str):
+def run_server(port: int, gpio_number: int, description: str):
     dht_sensor = DhtSensor(gpio_number, description)
-    server = WebThingServer(SingleThing(dht_sensor), hostname=hostname, port=port)
+    server = WebThingServer(SingleThing(dht_sensor), port=port, disable_host_validation=True)
     try:
         logging.info('starting the server')
         server.start()
