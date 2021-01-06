@@ -19,7 +19,14 @@ curl http://192.168.0.23:8070/properties
 
 A RaspberryPi/DHTxx hardware setup and wiring may look like [DHT22 example](docs/layout.png). 
 
-To install this software you may use [PIP](https://realpython.com/what-is-pip/) package manager such as shown below
+To install this software you may use Docker or [PIP](https://realpython.com/what-is-pip/) package manager such as shown below
+
+** Docker approach**
+```
+sudo docker run --privileged -p 8070:8070 -e gpio=2 grro/pi_dht_webthing:0.1.0
+```
+
+**PIP approach**
 ```
 sudo pip install pi_dht_webthing
 ```
