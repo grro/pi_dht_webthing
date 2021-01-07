@@ -19,7 +19,7 @@ curl http://192.168.0.23:8070/properties
 
 A RaspberryPi/DHTxx hardware setup and wiring may look like [DHT22 example](docs/layout.png). 
 
-To install this software you may use Docker or [PIP](https://realpython.com/what-is-pip/) package manager such as shown below
+To install this software you may use [Docker](https://phoenixnap.com/kb/docker-on-raspberry-pi) or [PIP](https://realpython.com/what-is-pip/) package manager such as shown below
 
 ** Docker approach**
 ```
