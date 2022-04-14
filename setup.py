@@ -38,7 +38,7 @@ setup(
     ],
     install_requires=[
         'webthing==0.15.0',
-        'Adafruit-DHT'
+        'Adafruit-DHT==1.4.0'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
