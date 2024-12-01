@@ -1,3 +1,4 @@
+import logging
 from string import Template
 from pi_dht_webthing.app import App
 from pi_dht_webthing.dht_webthing import run_server
@@ -54,6 +55,10 @@ class DhtApp(App):
 
 
 def main():
+    logging.basicConfig(format='%(asctime)s %(name)-20s: %(levelname)-8s %(message)s', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
+    logging.getLogger('tornado.access').setLevel(logging.ERROR)
+    logging.getLogger('urllib3.connectionpool').setLevel(logging.WARNING)
+    logging.getLogger('scapy.runtime').setLevel(logging.ERROR)
     DhtApp(PACKAGENAME, ENTRY_POINT, DESCRIPTION).handle_command()
 
 

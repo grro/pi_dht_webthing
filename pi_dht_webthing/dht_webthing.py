@@ -58,10 +58,8 @@ class DhtSensor(Thing):
             humidity, temperature = Adafruit_DHT.read_retry(self.sensor, self.gpio_number)
             if humidity is not None:
                 self.humidity.notify_of_external_update(round(humidity, 1))
-                logging.debug('humidity ' + str(humidity))
             if temperature is not None:
                 self.temperature.notify_of_external_update(round(temperature, 1))
-                logging.debug('temperature ' + str(temperature))
         except Exception as e:
             logging.error(e)
 
