@@ -1,7 +1,8 @@
-from webthing import (SingleThing, Property, Thing, Value, WebThingServer)
+import sys
 import logging
 import tornado.ioloop
 import Adafruit_DHT
+from webthing import (SingleThing, Property, Thing, Value, WebThingServer)
 
 
 class DhtSensor(Thing):
@@ -9,13 +10,13 @@ class DhtSensor(Thing):
     # regarding capabilities refer https://iot.mozilla.org/schemas
     # there is also another schema registry http://iotschema.org/docs/full.html not used by webthing
 
-    def __init__(self, gpio_number: int, description: str):
+    def __init__(self, gpio_number: int):
         Thing.__init__(
             self,
             'urn:dev:ops:dhtSensor-1',
             'Humidity and Temperature Sensor',
             ['TemperatureSensor', 'HumiditySensor'],
-            description
+            "sensor"
         )
 
         self.sensor = Adafruit_DHT.DHT22
@@ -67,8 +68,8 @@ class DhtSensor(Thing):
         self.timer.stop()
 
 
-def run_server(port: int, gpio_number: int, description: str):
-    dht_sensor = DhtSensor(gpio_number, description)
+def run_server(port: int, gpio_number: int):
+    dht_sensor = DhtSensor(gpio_number)
     server = WebThingServer(SingleThing(dht_sensor), port=port, disable_host_validation=True)
     try:
         logging.info('starting the server')
@@ -81,3 +82,8 @@ def run_server(port: int, gpio_number: int, description: str):
 
 
 
+if __name__ == '__main__':
+    logging.basicConfig(format='%(asctime)s %(name)-20s: %(levelname)-8s %(message)s', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
+    logging.getLogger('tornado.access').setLevel(logging.ERROR)
+    logging.getLogger('urllib3.connectionpool').setLevel(logging.WARNING)
+    run_server(int(sys.argv[1]), int(sys.argv[2]))

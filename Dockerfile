@@ -1,14 +1,15 @@
-FROM python:3.9.1-alpine
+FROM python:3-alpine
 
 ENV port 8070
 ENV name dht
-ENV verbose False
 
 
-ADD . /tmp/
-WORKDIR /tmp/
-RUN  python /tmp/setup.py install
-WORKDIR /
-RUN rm -r /tmp/
+RUN cd /etc
+RUN mkdir app
+WORKDIR /etc/app
+ADD *.py /etc/app/
+ADD requirements.txt /etc/app/.
+RUN pip install -r requirements.txt
 
-CMD dht --command listen --port $port --gpio $gpio --name $name --verbose $verbose
+CMD python /etc/app/dht_webthing.py $port $name
+

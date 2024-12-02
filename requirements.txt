@@ -1,0 +1,3 @@
+webthing>=0.15.0
+Adafruit-DHT==1.4.0
+
